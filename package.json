@@ -1,0 +1,36 @@
+{
+  "name": "@nmxjs/validation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo [@nmxjs/validation has no start script]",
+    "clear": "rm -rf dist",
+    "build": "yarn clear; tsc",
+    "test": "jest --config=jest.config.js --runInBand --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n1ghtm6r9/nm-validation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/n1ghtm6r9/nm-validation/issues"
+  },
+  "homepage": "https://github.com/n1ghtm6r9/nm-validation#readme",
+  "dependencies": {
+    "@nestjs/common": "^10.2.10",
+    "@nestjs/core": "^10.2.10",
+    "@nestjs/graphql": "^12.0.11",
+    "@nmxjs/errors": "^1.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "graphql-type-json": "^0.3.2",
+    "reflect-metadata": "^0.1.14"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
