@@ -2,7 +2,7 @@ import { InputType, ObjectType } from '@nestjs/graphql';
 import { schemasStore } from '../constants';
 
 export function setSchema(schema: Function) {
-  if (schemasStore.get(schema)) {
+  if (schemasStore.get(schema.name)) {
     return;
   }
 
@@ -16,5 +16,5 @@ export function setSchema(schema: Function) {
     ObjectType(name)(schema);
   }
 
-  schemasStore.set(schema, new Map());
+  schemasStore.set(schema.name, new Map());
 }

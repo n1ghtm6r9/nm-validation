@@ -1,3 +1,3 @@
 import { IFieldOptions } from '../interfaces';
 
-export const schemasStore = new Map<object | string, Map<string, IFieldOptions>>();
+export const schemasStore = new Map<string, Map<string, IFieldOptions>>();

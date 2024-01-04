@@ -8,7 +8,7 @@ const simpleTypes: any[] = [String, Number, Boolean];
 const enums: string[] = [];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
-  schemasStore.get(schema.constructor).set(key, options);
+  schemasStore.get(schema.constructor.name).set(key, options);
   const graphqlFieldOptions = { nullable: Boolean(options.nullable) };
   const classValidatorOptions = { each: Boolean(options.array) };
 
