@@ -3,7 +3,7 @@ import { schemasStore } from '../constants';
 const { InputType, ObjectType } = require('@nestjs/graphql');
 
 export function setSchema(schema: Function) {
-  if (schemasStore.get(schema.name)) {
+  if (schemasStore.get(schema)) {
     return;
   }
 
@@ -17,5 +17,5 @@ export function setSchema(schema: Function) {
     ObjectType(name)(schema);
   }
 
-  schemasStore.set(schema.name, new Map());
+  schemasStore.set(schema, new Map());
 }
