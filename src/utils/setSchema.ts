@@ -1,5 +1,6 @@
-import { InputType, ObjectType } from '@nestjs/graphql';
 import { schemasStore } from '../constants';
+
+const { InputType, ObjectType } = require('@nestjs/graphql');
 
 export function setSchema(schema: Function) {
   if (schemasStore.get(schema.name)) {
