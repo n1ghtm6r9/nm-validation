@@ -5,7 +5,7 @@ import { IFieldOptions } from '../interfaces';
 
 const { Field: GraphqlField, Float, registerEnumType } = require('@nestjs/graphql');
 
-const simpleTypes: any[] = [String, Number, Boolean];
+const simpleTypes: any[] = [String, Number, Boolean, Object];
 const enums: string[] = [];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
@@ -18,10 +18,7 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
       IsDefined()(schema, key);
     }
 
-    if (options.type !== GraphQLJSON) {
-      ValidateNested(classValidatorOptions)(schema, key);
-    }
-
+    ValidateNested(classValidatorOptions)(schema, key);
     GraphqlField(() => (options.array ? [options.type] : options.type), graphqlFieldOptions)(schema, key);
 
     return;
@@ -46,6 +43,7 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
     }
   } else if (options.type === Object) {
     IsObject()(schema, key);
+    GraphqlField(() => (options.array ? [GraphQLJSON] : GraphQLJSON), graphqlFieldOptions)(schema, key);
   } else if (options.enum) {
     const enumName = Object.keys(options.type)[0];
 
