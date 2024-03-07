@@ -1,12 +1,11 @@
 import GraphQLJSON from 'graphql-type-json';
 import { IsString, IsBoolean, IsNumber, IsOptional, IsDefined, ValidateNested, IsEnum, ArrayMinSize, Min, IsObject } from 'class-validator';
-import { schemasStore } from '../constants';
+import { enumsStore, schemasStore } from '../constants';
 import { IFieldOptions } from '../interfaces';
 
 const { Field: GraphqlField, Float, registerEnumType } = require('@nestjs/graphql');
 
 const simpleTypes: any[] = [String, Number, Boolean, Object];
-const enums: string[] = [];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
   schemasStore.get(schema.constructor).set(key, options);
@@ -47,9 +46,9 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
   } else if (options.enum) {
     const enumName = Object.keys(options.type)[0];
 
-    if (!enums.includes(enumName)) {
+    if (!enumsStore.get(options.type[enumName])) {
       registerEnumType(options.type[enumName], { name: enumName });
-      enums.push(enumName);
+      enumsStore.set(options.type[enumName], true);
     }
 
     GraphqlField(() => (options.array ? [options.type[enumName]] : options.type[enumName]), graphqlFieldOptions)(schema, key);
