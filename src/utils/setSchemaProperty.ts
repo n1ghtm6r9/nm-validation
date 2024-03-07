@@ -8,7 +8,7 @@ const { Field: GraphqlField, Float, registerEnumType } = require('@nestjs/graphq
 const simpleTypes: any[] = [String, Number, Boolean, Object];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
-  schemasStore.get(schema.constructor).set(key, options);
+  schemasStore.get(schema.constructor.name).set(key, options);
   const graphqlFieldOptions = { nullable: Boolean(options.nullable) };
   const classValidatorOptions = { each: Boolean(options.array) };
 
@@ -46,9 +46,9 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
   } else if (options.enum) {
     const enumName = Object.keys(options.type)[0];
 
-    if (!enumsStore.get(options.type[enumName])) {
+    if (!enumsStore.get(enumName)) {
       registerEnumType(options.type[enumName], { name: enumName });
-      enumsStore.set(options.type[enumName], true);
+      enumsStore.set(enumName, true);
     }
 
     GraphqlField(() => (options.array ? [options.type[enumName]] : options.type[enumName]), graphqlFieldOptions)(schema, key);
