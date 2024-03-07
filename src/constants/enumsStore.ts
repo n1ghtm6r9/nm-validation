@@ -1,1 +1,1 @@
-export const enumsStore = new Map<string, true>();
+export const enumsStore = new Map<object, true>();
