@@ -7,7 +7,7 @@ export function setSchema(schema: Function, input = true) {
     return;
   }
 
-  const name = schema.name.replace('Dto', '');
+  const name = schema.name.replace('Dto', '').replace(/\d+/g, '');
 
   const isInput = Boolean(['Input', 'Request'].find(v => name.includes(v)));
 
