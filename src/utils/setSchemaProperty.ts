@@ -1,5 +1,5 @@
 import GraphQLJSON from 'graphql-type-json';
-import { IsString, IsBoolean, IsNumber, IsOptional, IsDefined, ValidateNested, IsEnum, ArrayMinSize, Min, IsObject } from 'class-validator';
+import { IsString, IsBoolean, IsNumber, IsOptional, IsDefined, ValidateNested, IsEnum, ArrayMinSize, Min, IsObject, Matches } from 'class-validator';
 import { enumsStore, schemasStore } from '../constants';
 import { IFieldOptions } from '../interfaces';
 
@@ -24,6 +24,10 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
   } else if (options.type === String) {
     GraphqlField(() => (options.array ? [String] : String), graphqlFieldOptions)(schema, key);
     IsString(classValidatorOptions)(schema, key);
+
+    if (options.meta?.pattern) {
+      Matches(options.meta.pattern)(schema, key);
+    }
   } else if (options.type === Boolean) {
     GraphqlField(() => (options.array ? [Boolean] : Boolean), graphqlFieldOptions)(schema, key);
     IsBoolean(classValidatorOptions)(schema, key);
