@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { validateSchema } from 'src/utils';
+import { validateSchema } from '../utils';
 
 @Injectable()
 export class ValidateSchemaService {
