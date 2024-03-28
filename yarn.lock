@@ -36,10 +36,10 @@
     iterare "1.2.1"
     tslib "2.6.2"
 
-"@nmxjs/errors@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@nmxjs/errors/-/errors-1.0.3.tgz#c82a826de393bfe8cbd6f36e7113a5821b0dc1d1"
-  integrity sha512-utMBW1RFi6KgmrKFWmb4MrP7mFPjJHYJondXw8POgUYPAdJkaxDarbflEUEjsrg1m8S9SwiNOcNLEGYepM3s+A==
+"@nmxjs/errors@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@nmxjs/errors/-/errors-1.0.8.tgz#a5d134c8c4a1e6682d580d82d3562a42655ba39a"
+  integrity sha512-vx73BoJM/qQShacmzdNM9YTHexYRZDSQjMwzTFyiffe1aJAMwSW3uQLtzQvXYwaI9ktiOy3h1Qz6OHI9uXbbQA==
   dependencies:
     "@nestjs/microservices" "^10.2.10"
 

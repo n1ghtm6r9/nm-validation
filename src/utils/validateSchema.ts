@@ -1,5 +1,5 @@
 import type { IValidateSchemaOptions } from '../interfaces';
-import { ValidationError } from '../errors';
+import { ValidationError } from '@nmxjs/errors';
 import { validateSync } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 
@@ -7,7 +7,7 @@ export const validateSchema = <T extends object>({ data, classSchema }: IValidat
   const [error] = validateSync(plainToInstance(classSchema, data));
 
   if (error) {
-    throw new ValidationError(error.toString());
+    throw new ValidationError(error.property);
   }
 
   return data;
