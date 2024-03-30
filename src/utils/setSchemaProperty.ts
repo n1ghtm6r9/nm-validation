@@ -41,9 +41,6 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
     if (typeof options.meta?.max === 'number') {
       Min(options.meta.max, classValidatorOptions)(schema, key);
     }
-    if (typeof options.meta?.arrayMinSize === 'number') {
-      ArrayMinSize(options.meta.arrayMinSize, classValidatorOptions)(schema, key);
-    }
   } else if (options.type === Object) {
     IsObject()(schema, key);
     GraphqlField(() => (options.array ? [GraphQLJSON] : GraphQLJSON), graphqlFieldOptions)(schema, key);
@@ -61,5 +58,9 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
 
   if (options.nullable) {
     IsOptional()(schema, key);
+  }
+
+  if (options.array && typeof options.meta?.arrayMinSize === 'number') {
+    ArrayMinSize(options.meta.arrayMinSize, classValidatorOptions)(schema, key);
   }
 }
