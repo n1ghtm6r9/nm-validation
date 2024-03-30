@@ -61,6 +61,6 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
   }
 
   if (options.array && typeof options.meta?.arrayMinSize === 'number') {
-    ArrayMinSize(options.meta.arrayMinSize, classValidatorOptions)(schema, key);
+    ArrayMinSize(options.meta.arrayMinSize)(schema, key);
   }
 }
