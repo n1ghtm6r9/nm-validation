@@ -13,6 +13,7 @@ import {
   IsObject,
   Matches,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { enumsStore, schemasStore } from '../constants';
 import { IFieldOptions } from '../interfaces';
 
@@ -31,6 +32,7 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
     }
 
     ValidateNested(classValidatorOptions)(schema, key);
+    Type(() => <Function>options.type)(schema, key);
     GraphqlField(() => (options.array ? [options.type] : options.type), graphqlFieldOptions)(schema, key);
 
     return;
