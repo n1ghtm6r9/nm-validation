@@ -1,5 +1,18 @@
 import GraphQLJSON from 'graphql-type-json';
-import { IsString, IsBoolean, IsNumber, IsOptional, IsDefined, ValidateNested, IsEnum, ArrayMinSize, Min, IsObject, Matches } from 'class-validator';
+import {
+  IsIn,
+  IsString,
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsDefined,
+  ValidateNested,
+  IsEnum,
+  ArrayMinSize,
+  Min,
+  IsObject,
+  Matches,
+} from 'class-validator';
 import { enumsStore, schemasStore } from '../constants';
 import { IFieldOptions } from '../interfaces';
 
@@ -62,5 +75,9 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
 
   if (options.array && typeof options.meta?.arrayMinSize === 'number') {
     ArrayMinSize(options.meta.arrayMinSize)(schema, key);
+  }
+
+  if (options.meta?.allow?.length) {
+    IsIn(options.meta.allow, classValidatorOptions)(schema, key);
   }
 }
