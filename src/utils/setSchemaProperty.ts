@@ -23,7 +23,14 @@ const simpleTypes: any[] = [String, Number, Boolean, Object];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
   schemasStore.get(schema.constructor).set(key, options);
-  const graphqlFieldOptions = { nullable: Boolean(options.nullable) };
+  const graphqlFieldOptions = {
+    nullable: Boolean(options.nullable),
+    ...(typeof options.default !== 'undefined'
+      ? {
+          defaultValue: options.default,
+        }
+      : {}),
+  };
   const classValidatorOptions = { each: Boolean(options.array) };
 
   if (!simpleTypes.includes(options.type) && !options.enum) {

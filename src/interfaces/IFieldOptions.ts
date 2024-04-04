@@ -7,4 +7,5 @@ export interface IFieldOptions {
   nullable?: boolean;
   meta?: IFieldOptionsMeta;
   env?: boolean;
+  default?: any;
 }
