@@ -40,21 +40,28 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
 
     ValidateNested(classValidatorOptions)(schema, key);
     Type(() => <Function>options.type)(schema, key);
-    GraphqlField(() => (options.array ? [options.type] : options.type), graphqlFieldOptions)(schema, key);
-
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [options.type] : options.type), graphqlFieldOptions)(schema, key);
+    }
     return;
   } else if (options.type === String) {
-    GraphqlField(() => (options.array ? [String] : String), graphqlFieldOptions)(schema, key);
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [String] : String), graphqlFieldOptions)(schema, key);
+    }
     IsString(classValidatorOptions)(schema, key);
 
     if (options.meta?.pattern) {
       Matches(options.meta.pattern)(schema, key);
     }
   } else if (options.type === Boolean) {
-    GraphqlField(() => (options.array ? [Boolean] : Boolean), graphqlFieldOptions)(schema, key);
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [Boolean] : Boolean), graphqlFieldOptions)(schema, key);
+    }
     IsBoolean(classValidatorOptions)(schema, key);
   } else if (options.type === Number) {
-    GraphqlField(() => (options.array ? [Float] : Float), graphqlFieldOptions)(schema, key);
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [Float] : Float), graphqlFieldOptions)(schema, key);
+    }
     IsNumber(undefined, classValidatorOptions)(schema, key);
 
     if (typeof options.meta?.min === 'number') {
@@ -65,7 +72,9 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
     }
   } else if (options.type === Object) {
     IsObject()(schema, key);
-    GraphqlField(() => (options.array ? [GraphQLJSON] : GraphQLJSON), graphqlFieldOptions)(schema, key);
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [GraphQLJSON] : GraphQLJSON), graphqlFieldOptions)(schema, key);
+    }
   } else if (options.enum) {
     const enumName = Object.keys(options.type)[0];
 
@@ -74,7 +83,10 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
       enumsStore.set(options.type[enumName], true);
     }
 
-    GraphqlField(() => (options.array ? [options.type[enumName]] : options.type[enumName]), graphqlFieldOptions)(schema, key);
+    if (!options.withoutGraphQl) {
+      GraphqlField(() => (options.array ? [options.type[enumName]] : options.type[enumName]), graphqlFieldOptions)(schema, key);
+    }
+
     IsEnum(options.type[enumName], classValidatorOptions)(schema, key);
   }
 

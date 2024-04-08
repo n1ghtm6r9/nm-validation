@@ -8,4 +8,5 @@ export interface IFieldOptions {
   meta?: IFieldOptionsMeta;
   env?: boolean;
   default?: any;
+  withoutGraphQl?: boolean;
 }
