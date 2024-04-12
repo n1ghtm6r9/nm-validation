@@ -34,6 +34,10 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
   const classValidatorOptions = { each: Boolean(options.array) };
 
   if (!simpleTypes.includes(options.type) && !options.enum) {
+    if (!options.nullable) {
+      IsDefined()(schema, key);
+    }
+
     ValidateNested(classValidatorOptions)(schema, key);
     Type(() => <Function>options.type)(schema, key);
     if (!options.withoutGraphQl) {
@@ -90,8 +94,6 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
 
   if (options.nullable) {
     IsOptional()(schema, key);
-  } else {
-    IsDefined()(schema, key);
   }
 
   if (options.array && typeof options.meta?.arrayMinSize === 'number') {
