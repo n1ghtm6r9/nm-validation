@@ -1,7 +1,7 @@
 import { IFieldOptionsMeta } from './IFieldOptionsMeta';
 
 export interface IFieldOptions {
-  type: String | Number | Boolean | Object | object;
+  type: String | Number | Boolean | Object | object | JSON;
   enum?: boolean;
   array?: boolean;
   nullable?: boolean;
