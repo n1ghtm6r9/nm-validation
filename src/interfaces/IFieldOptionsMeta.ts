@@ -4,4 +4,5 @@ export interface IFieldOptionsMeta {
   pattern?: RegExp;
   arrayMinSize?: number;
   allow?: string[] | number[];
+  int?: boolean;
 }

@@ -4,6 +4,7 @@ import {
   IsString,
   IsBoolean,
   IsNumber,
+  IsInt,
   IsOptional,
   IsDefined,
   ValidateNested,
@@ -17,7 +18,7 @@ import { Type } from 'class-transformer';
 import { enumsStore, schemasStore } from '../constants';
 import { IFieldOptions } from '../interfaces';
 
-const { Field: GraphqlField, Float, registerEnumType } = require('@nestjs/graphql');
+const { Field: GraphqlField, Int, Float, registerEnumType } = require('@nestjs/graphql');
 
 const simpleTypes: any[] = [String, Number, Boolean, Object];
 
@@ -59,10 +60,13 @@ export function setSchemaProperty(schema: Function, key: string, options: IField
     }
     IsBoolean(classValidatorOptions)(schema, key);
   } else if (options.type === Number) {
+    const gqlType = options.meta?.int ? Int : Float;
+    const IsIntOrFloat = options.meta?.int ? IsInt : IsNumber;
+
     if (!options.withoutGraphQl) {
-      GraphqlField(() => (options.array ? [Float] : Float), graphqlFieldOptions)(schema, key);
+      GraphqlField(() => (options.array ? [gqlType] : gqlType), graphqlFieldOptions)(schema, key);
     }
-    IsNumber(undefined, classValidatorOptions)(schema, key);
+    IsIntOrFloat(undefined, classValidatorOptions)(schema, key);
 
     if (typeof options.meta?.min === 'number') {
       Min(options.meta.min, classValidatorOptions)(schema, key);
