@@ -20,7 +20,7 @@ import { IFieldOptions } from '../interfaces';
 
 const { Field: GraphqlField, Int, Float, registerEnumType } = require('@nestjs/graphql');
 
-const simpleTypes: any[] = [String, Number, Boolean, Object];
+const simpleTypes: any[] = [String, Number, Boolean, Object, JSON];
 
 export function setSchemaProperty(schema: Function, key: string, options: IFieldOptions) {
   schemasStore.get(schema.constructor).set(key, options);
