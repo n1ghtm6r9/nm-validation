@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { IFieldOptions } from '../interfaces';
 import { setSchema, setSchemaProperty } from '../utils';
 
